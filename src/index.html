@@ -36,6 +36,10 @@
     gtag('config', 'G-9ZWBSHE66M', {
       // Enhanced measurement - habilita rastreamento automático
       send_page_view: true,
+      
+      // Força a detecção do domínio raiz (resolve erro de domínio no Firefox/Chrome)
+      cookie_domain: window.location.hostname.replace('www.', ''),
+      cookie_flags: 'SameSite=Lax;Secure', // Alterado de None para Lax
 
       // Configurações de consentimento padrão (LGPD-ready)
       anonymize_ip: true,
