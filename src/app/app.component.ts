@@ -1,18 +1,21 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AnalyticsService } from './analytics.service';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, FormsModule, CommonModule],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    imports: [RouterOutlet, FormsModule, CommonModule],
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements AfterViewInit {
+  private readonly analytics = inject(AnalyticsService);
+
   title = 'turemar';
   mobileMenuOpen = false;
+  private formStarted = false;
 
   // Form fields
   nome = '';
@@ -23,6 +26,7 @@ export class AppComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.initScrollReveal();
+    this.analytics.initialize();
   }
 
   toggleMenu(): void {
@@ -33,7 +37,19 @@ export class AppComponent implements AfterViewInit {
     this.mobileMenuOpen = false;
   }
 
+  /** Chamado quando o usuário começa a preencher o formulário */
+  onFormFieldFocus(fieldName: string): void {
+    if (!this.formStarted) {
+      this.formStarted = true;
+      this.analytics.trackFormStart();
+    }
+    this.analytics.trackFormFieldInteraction(fieldName);
+  }
+
   enviarWhatsApp(): void {
+    // Rastreia envio do formulário no GA4
+    this.analytics.trackFormSubmit(this.servico);
+
     const servicoLabels: { [key: string]: string } = {
       'cruzeiro': 'Cruzeiro',
       'aereo': 'Passagem Aérea',
