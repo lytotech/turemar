@@ -2,17 +2,17 @@
 
 <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
 
-<div class="turemar-site min-h-screen bg-white" role="main">
+<div class="turemar-site">
   <!-- Header -->
   <header class="header" role="banner">
     <nav class="nav" role="navigation" aria-label="Navegação principal">
       <div class="container">
         <div class="nav-content">
-          <div class="flex items-center">
-            <h1 class="logo" aria-label="Turemar">Turemar</h1>
+          <div class="nav-brand">
+            <a href="#inicio" class="logo" aria-label="Turemar - Ir para o início">Turemar</a>
             <span class="tagline">Viagens</span>
           </div>
-          
+
           <!-- Menu Desktop -->
           <ul class="nav-menu" role="menubar">
             <li role="none"><a href="#inicio" role="menuitem">Início</a></li>
@@ -20,58 +20,68 @@
             <li role="none"><a href="#servicos" role="menuitem">Serviços</a></li>
             <li role="none"><a href="#contato" role="menuitem">Contato</a></li>
           </ul>
-          
+
           <!-- Menu Mobile Button -->
-          <button 
+          <button
             class="mobile-menu-btn"
-            aria-label="Abrir menu de navegação"
-            aria-expanded="false"
+            [attr.aria-expanded]="mobileMenuOpen"
             aria-controls="mobile-menu"
-            onclick="toggleMobileMenu()"
+            aria-label="Abrir menu de navegação"
+            (click)="toggleMenu()"
           >
-            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <svg *ngIf="!mobileMenuOpen" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+            <svg *ngIf="mobileMenuOpen" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
           </button>
         </div>
-        
+
         <!-- Menu Mobile -->
-        <div id="mobile-menu" class="mobile-menu hidden" role="menu">
+        <div id="mobile-menu" class="mobile-menu" [class.active]="mobileMenuOpen" role="menu">
           <ul>
-            <li role="none"><a href="#inicio" role="menuitem">Início</a></li>
-            <li role="none"><a href="#sobre" role="menuitem">Sobre</a></li>
-            <li role="none"><a href="#servicos" role="menuitem">Serviços</a></li>
-            <li role="none"><a href="#contato" role="menuitem">Contato</a></li>
+            <li role="none"><a href="#inicio" role="menuitem" (click)="closeMenu()">Início</a></li>
+            <li role="none"><a href="#sobre" role="menuitem" (click)="closeMenu()">Sobre</a></li>
+            <li role="none"><a href="#servicos" role="menuitem" (click)="closeMenu()">Serviços</a></li>
+            <li role="none"><a href="#contato" role="menuitem" (click)="closeMenu()">Contato</a></li>
           </ul>
         </div>
       </div>
     </nav>
   </header>
 
-  <!-- Hero Section - Design Clean -->
+  <!-- Hero Section -->
   <section id="inicio" class="hero" role="banner">
+    <div class="hero-overlay"></div>
     <div class="container">
       <div class="hero-content" id="main-content">
-        <h1 class="hero-title">Experiências Inesquecíveis no Mar</h1>
+        <span class="hero-badge">✨ Especialistas em Turismo Marítimo</span>
+        <h1 class="hero-title">Experiências Inesquecíveis<br>no Mar</h1>
         <p class="hero-subtitle">
-          Descubra o mundo através dos nossos cruzeiros exclusivos e serviços de turismo personalizados. 
-          Planejamos cada detalhe da sua viagem para criar momentos únicos e inesquecíveis.
+          Descubra o mundo através dos nossos cruzeiros exclusivos e serviços de turismo personalizados.
+          Planejamos cada detalhe da sua viagem para criar momentos únicos.
         </p>
         <div class="hero-buttons">
-          <a 
-            href="#servicos" 
+          <a
+            href="#servicos"
             class="btn btn-primary"
             role="button"
             aria-label="Ver nossos serviços de turismo"
           >
             Nossos Serviços
           </a>
-          <a 
-            href="#contato" 
-            class="btn btn-outline"
+          <a
+            href="https://wa.me/5541987822306?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20servi%C3%A7os%20da%20Turemar."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-outline-light"
             role="button"
-            aria-label="Entrar em contato conosco"
+            aria-label="Falar conosco pelo WhatsApp"
           >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align: -3px; margin-right: 6px;">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
             Falar Conosco
           </a>
         </div>
@@ -82,66 +92,103 @@
   <!-- Seção Sobre -->
   <section id="sobre" class="section bg-white" role="region" aria-labelledby="sobre-heading">
     <div class="container">
-      <div class="grid-responsive">
+      <div class="grid-responsive reveal">
         <div>
           <h2 id="sobre-heading" class="section-title">Sobre a Turemar</h2>
-          <p class="text-gray-600 mb-6 leading-relaxed">
-            Fundada por <strong>Kamila Motta</strong>, especialista em turismo marítimo, 
+          <p class="text-secondary mb-6">
+            Fundada por <strong>Kamila Motta</strong>, especialista em turismo marítimo,
             a Turemar nasceu da paixão pelo mar e pela experiência única que as viagens proporcionam.
           </p>
-          <p class="text-gray-600 mb-6 leading-relaxed">
-            Com vasta experiência como vendedora em operadora de cruzeiros e agente em agência de turismo, 
+          <p class="text-secondary mb-6">
+            Com vasta experiência como vendedora em operadora de cruzeiros e agente em agência de turismo,
             Kamila decidiu criar seu próprio negócio para oferecer experiências inesquecíveis.
           </p>
-          <p class="text-gray-600 mb-8 leading-relaxed">
-            Nosso compromisso é com a <strong>excelência no atendimento</strong> e a qualidade dos serviços, 
+          <p class="text-secondary mb-8">
+            Nosso compromisso é com a <strong>excelência no atendimento</strong> e a qualidade dos serviços,
             oferecendo desde cruzeiros exclusivos até pacotes completos de viagem.
           </p>
         </div>
-        <div class="card text-center">
+        <div class="card founder-card text-center">
+          <div class="founder-avatar" aria-hidden="true">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
           <h3 class="card-title">Kamila Motta</h3>
-          <p class="text-blue-600 font-semibold mb-2">Fundadora & CEO</p>
-          <p class="text-gray-600">Especialista em Turismo Marítimo</p>
+          <p class="text-primary font-semibold mb-2">Fundadora &amp; CEO</p>
+          <p class="text-secondary">Especialista em Turismo Marítimo</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Seção Serviços -->
-  <section id="servicos" class="section bg-gray-50" role="region" aria-labelledby="servicos-heading">
+  <section id="servicos" class="section bg-soft" role="region" aria-labelledby="servicos-heading">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <h2 id="servicos-heading" class="section-title">Nossos Serviços</h2>
         <p class="section-subtitle">Oferecemos uma gama completa de serviços turísticos com atendimento personalizado</p>
       </div>
-      
-      <div class="grid-responsive three-cols">
-        <article class="card" role="article">
-          <div class="card-icon" aria-hidden="true">🚢</div>
+
+      <div class="services-grid">
+        <article class="card service-card reveal" role="article">
+          <div class="card-icon" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1 .6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>
+              <path d="M19.38 20A11.6 11.6 0 0 0 21 14l-9-4-9 4c0 2.9.94 5.34 2.81 7.76"/>
+              <path d="M19 13V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6"/>
+              <path d="M12 10v-3"/><path d="M12 2v3"/>
+            </svg>
+          </div>
           <h3 class="card-title">Cruzeiros</h3>
           <p class="card-text">Nossa especialidade: cruzeiros com roteiros exclusivos e experiências inesquecíveis a bordo</p>
         </article>
-        
-        <article class="card" role="article">
-          <div class="card-icon" aria-hidden="true">✈️</div>
+
+        <article class="card service-card reveal" role="article">
+          <div class="card-icon" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
+            </svg>
+          </div>
           <h3 class="card-title">Passagens Aéreas</h3>
           <p class="card-text">Passagens nacionais e internacionais com as melhores tarifas e condições de pagamento</p>
         </article>
-        
-        <article class="card" role="article">
-          <div class="card-icon" aria-hidden="true">🚌</div>
+
+        <article class="card service-card reveal" role="article">
+          <div class="card-icon" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 6v6"/><path d="M15 6v6"/><path d="M2 12h19.6"/>
+              <path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"/>
+              <circle cx="7" cy="18" r="2"/><path d="M9 18h5"/><circle cx="16" cy="18" r="2"/>
+            </svg>
+          </div>
           <h3 class="card-title">Viagens Terrestres</h3>
           <p class="card-text">Roteiros rodoviários confortáveis e seguros para diversos destinos nacionais</p>
         </article>
-        
-        <article class="card" role="article">
-          <div class="card-icon" aria-hidden="true">📦</div>
+
+        <article class="card service-card reveal" role="article">
+          <div class="card-icon" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m7.5 4.27 9 5.15"/>
+              <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
+              <path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>
+            </svg>
+          </div>
           <h3 class="card-title">Pacotes Completos</h3>
           <p class="card-text">Pacotes personalizados incluindo hospedagem, transporte e passeios exclusivos</p>
         </article>
-        
-        <article class="card" role="article">
-          <div class="card-icon" aria-hidden="true">🏨</div>
+
+        <article class="card service-card reveal" role="article">
+          <div class="card-icon" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"/>
+              <path d="m9 16 .348-.24c1.465-1.013 3.84-1.013 5.304 0L15 16"/>
+              <path d="M8 7h.01"/><path d="M16 7h.01"/><path d="M12 7h.01"/>
+              <path d="M12 11h.01"/><path d="M16 11h.01"/><path d="M8 11h.01"/>
+              <path d="M10 22v-6.5m4 0V22"/>
+            </svg>
+          </div>
           <h3 class="card-title">Hospedagens</h3>
           <p class="card-text">Hotéis e pousadas selecionados nos melhores destinos turísticos do Brasil e exterior</p>
         </article>
@@ -152,89 +199,101 @@
   <!-- Seção Contato -->
   <section id="contato" class="section bg-white" role="region" aria-labelledby="contato-heading">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <h2 id="contato-heading" class="section-title">Entre em Contato</h2>
         <p class="section-subtitle">Estamos prontos para criar sua próxima experiência inesquecível</p>
       </div>
-      
-      <div class="grid-responsive">
-        <div class="card">
+
+      <div class="grid-responsive reveal">
+        <div class="card contact-info-card">
           <h3 class="card-title">Informações de Contato</h3>
-          <div class="space-y-4">
-            <div class="flex items-center">
-              <div class="text-2xl mr-4" aria-hidden="true">📞</div>
+          <div class="contact-items">
+            <div class="contact-item">
+              <div class="contact-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+              </div>
               <div>
-                <p class="font-semibold text-gray-900">Telefone</p>
+                <p class="contact-label">Telefone / WhatsApp</p>
                 <a href="https://wa.me/5541987822306" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="Enviar mensagem no WhatsApp para (41) 98782-2306">(41) 98782-2306</a>
               </div>
             </div>
-            <div class="flex items-center">
-              <div class="text-2xl mr-4" aria-hidden="true">📧</div>
+            <div class="contact-item">
+              <div class="contact-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                </svg>
+              </div>
               <div>
-                <p class="font-semibold text-gray-900">E-mail</p>
+                <p class="contact-label">E-mail</p>
                 <a href="mailto:contato@turemar.com.br" class="contact-link" aria-label="Enviar e-mail">contato&#64;turemar.com.br</a>
               </div>
             </div>
-            <div class="flex items-center">
-              <div class="text-2xl mr-4" aria-hidden="true">⏰</div>
+            <div class="contact-item">
+              <div class="contact-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
               <div>
-                <p class="font-semibold text-gray-900">Horário de Atendimento</p>
-                <p class="text-gray-600">Segunda a Sexta: 8h às 18h</p>
+                <p class="contact-label">Horário de Atendimento</p>
+                <p class="text-secondary">Segunda a Sexta: 8h às 18h</p>
               </div>
             </div>
           </div>
         </div>
-        
-        <form class="card" role="form" aria-label="Formulário de contato">
+
+        <form class="card" role="form" aria-label="Formulário de contato" (ngSubmit)="enviarWhatsApp()">
           <div class="form-group">
             <label for="nome" class="form-label">Nome Completo *</label>
-            <input 
-              type="text" 
-              id="nome" 
-              name="nome" 
-              required 
+            <input
+              type="text"
+              id="nome"
+              name="nome"
+              required
               class="form-input"
+              [(ngModel)]="nome"
               aria-required="true"
-              aria-describedby="nome-help"
+              placeholder="Seu nome completo"
             >
-            <p id="nome-help" class="form-help">Campo obrigatório</p>
           </div>
-          
+
           <div class="form-group">
             <label for="email" class="form-label">E-mail *</label>
-            <input 
-              type="email" 
-              id="email" 
-              name="email" 
-              required 
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
               class="form-input"
+              [(ngModel)]="email"
               aria-required="true"
-              aria-describedby="email-help"
+              placeholder="seu@email.com"
             >
-            <p id="email-help" class="form-help">Campo obrigatório</p>
           </div>
-          
+
           <div class="form-group">
             <label for="telefone" class="form-label">Telefone</label>
-            <input 
-              type="tel" 
-              id="telefone" 
-              name="telefone" 
+            <input
+              type="tel"
+              id="telefone"
+              name="telefone"
               class="form-input"
-              aria-describedby="telefone-help"
+              [(ngModel)]="telefone"
+              placeholder="(00) 00000-0000"
             >
-            <p id="telefone-help" class="form-help">Campo opcional</p>
           </div>
-          
+
           <div class="form-group">
             <label for="servico" class="form-label">Serviço de Interesse *</label>
-            <select 
-              id="servico" 
-              name="servico" 
-              required 
+            <select
+              id="servico"
+              name="servico"
+              required
               class="form-input"
+              [(ngModel)]="servico"
               aria-required="true"
-              aria-describedby="servico-help"
             >
               <option value="">Selecione um serviço</option>
               <option value="cruzeiro">Cruzeiro</option>
@@ -243,29 +302,29 @@
               <option value="pacote">Pacote Completo</option>
               <option value="hotel">Hospedagem</option>
             </select>
-            <p id="servico-help" class="form-help">Campo obrigatório</p>
           </div>
-          
+
           <div class="form-group">
             <label for="mensagem" class="form-label">Mensagem</label>
-            <textarea 
-              id="mensagem" 
-              name="mensagem" 
-              rows="4" 
+            <textarea
+              id="mensagem"
+              name="mensagem"
+              rows="4"
               placeholder="Conte-nos sobre sua viagem dos sonhos..."
-              class="form-input"
-              style="resize: vertical; min-height: 120px;"
-              aria-describedby="mensagem-help"
+              class="form-input form-textarea"
+              [(ngModel)]="mensagem"
             ></textarea>
-            <p id="mensagem-help" class="form-help">Campo opcional</p>
           </div>
-          
-          <button 
-            type="submit" 
-            class="btn btn-primary w-full"
-            aria-label="Enviar formulário de contato"
+
+          <button
+            type="submit"
+            class="btn btn-primary btn-full"
+            aria-label="Enviar mensagem pelo WhatsApp"
           >
-            Enviar Mensagem
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align: -3px; margin-right: 8px;">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Enviar pelo WhatsApp
           </button>
         </form>
       </div>
@@ -277,14 +336,14 @@
     <div class="container">
       <div class="footer-content">
         <div>
-          <h3 class="footer-title">Turemar</h3>
-          <p class="text-gray-300 mb-4">Viagens - Experiências Inesquecíveis</p>
-          <p class="text-gray-400 text-sm">Especializada em cruzeiros e turismo personalizado</p>
+          <h3 class="footer-brand">Turemar</h3>
+          <p class="footer-tagline">Viagens — Experiências Inesquecíveis</p>
+          <p class="footer-desc">Especializada em cruzeiros e turismo personalizado</p>
         </div>
-        
+
         <div>
           <h4 class="footer-title">Serviços</h4>
-          <ul class="space-y-2 list-none">
+          <ul class="footer-links">
             <li><a href="#servicos" class="footer-link">Cruzeiros</a></li>
             <li><a href="#servicos" class="footer-link">Passagens Aéreas</a></li>
             <li><a href="#servicos" class="footer-link">Viagens Terrestres</a></li>
@@ -292,10 +351,10 @@
             <li><a href="#servicos" class="footer-link">Hospedagens</a></li>
           </ul>
         </div>
-        
+
         <div>
           <h4 class="footer-title">Contato</h4>
-          <div class="space-y-2">
+          <div class="footer-contact">
             <p>
               <a href="tel:+5541987822306" class="footer-link" aria-label="Ligar para (41) 98782-2306">
                 📱 (41) 98782-2306
@@ -309,12 +368,25 @@
           </div>
         </div>
       </div>
-      
+
       <div class="footer-bottom">
-        <p>&copy; 2025 Turemar. Todos os direitos reservados.</p>
+        <p>&copy; 2026 Turemar. Todos os direitos reservados.</p>
       </div>
     </div>
   </footer>
 </div>
+
+<!-- WhatsApp Floating Button -->
+<a
+  href="https://wa.me/5541987822306?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20servi%C3%A7os%20da%20Turemar."
+  target="_blank"
+  rel="noopener noreferrer"
+  class="whatsapp-fab"
+  aria-label="Abrir conversa no WhatsApp"
+>
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
 
 <router-outlet />
